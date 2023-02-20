@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery/utils/app_column.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
-import 'package:food_delivery/widgets/icon_and_text.dart';
-import 'package:food_delivery/widgets/small_text.dart';
+import 'package:food_delivery/widgets/expandable_text_widget.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   const PopularFoodDetail({Key? key}) : super(key: key);
@@ -18,6 +15,7 @@ class PopularFoodDetail extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          //background image
           Positioned(
             left: 0,
             right: 0,
@@ -31,6 +29,7 @@ class PopularFoodDetail extends StatelessWidget {
               )),
             ),
           ),
+          //icon widgets
           Positioned(
             top: Dimensions.height45,
             left: Dimensions.width20,
@@ -43,6 +42,7 @@ class PopularFoodDetail extends StatelessWidget {
               ],
             ),
           ),
+          //introduction
           Positioned(
             left: 0,
             right: 0,
@@ -70,13 +70,24 @@ class PopularFoodDetail extends StatelessWidget {
                   SizedBox(
                     height: Dimensions.height20,
                   ),
-                  BigText(text: "Introduction")
+                  BigText(text: "Introduction"),
+                  SizedBox(
+                    height: Dimensions.height20,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: ExpandableTextWidget(
+                          text:
+                              "Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me"),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ],
       ),
+      //bottomNavBar
       bottomNavigationBar: Container(
         height: Dimensions.bottomHeightbar,
         padding: EdgeInsets.only(
