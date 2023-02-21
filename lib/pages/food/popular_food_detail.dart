@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/popular_product_controllers.dart';
+import 'package:food_delivery/pages/home/main_food_page.dart';
 import 'package:food_delivery/utils/app_column.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
+
+import '../../routes/route_helper.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  int pageId;
+  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -25,7 +35,9 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/image/food2.jpg"),
+                image: NetworkImage(AppConstants.BASE_URL +
+                    AppConstants.UPLOAD_URL +
+                    product.img!),
               )),
             ),
           ),
@@ -37,7 +49,11 @@ class PopularFoodDetail extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.arrow_back_ios),
+                GestureDetector(
+                    onTap: () {
+                      Get.toNamed(RouteHelper.getInitital());
+                    },
+                    child: AppIcon(icon: Icons.arrow_back_ios)),
                 AppIcon(icon: Icons.shopping_cart_outlined),
               ],
             ),
@@ -65,7 +81,7 @@ class PopularFoodDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppColumn(
-                    text: "Kahit na anong foods",
+                    text: product.name!,
                   ),
                   SizedBox(
                     height: Dimensions.height20,
@@ -76,9 +92,7 @@ class PopularFoodDetail extends StatelessWidget {
                   ),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: ExpandableTextWidget(
-                          text:
-                              "Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me Love of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to meLove of my life, you've hurt me You've broken my heart and now you leave me Love of my life, can't you see? Bring it back, bring it back, don't take it away from me Because you don't know what it means to me"),
+                      child: ExpandableTextWidget(text: product.description!),
                     ),
                   ),
                 ],
@@ -142,13 +156,13 @@ class PopularFoodDetail extends StatelessWidget {
                 right: Dimensions.width20,
                 left: Dimensions.width20,
               ),
-              child: BigText(
-                text: "\$10 | Add to Cart",
-                color: Colors.white,
-              ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: AppColors.mainColor),
+              child: BigText(
+                text: "\$  ${product.price!}" + " | Add to Cart",
+                color: Colors.white,
+              ),
             ),
           ],
         ),
